@@ -27,7 +27,10 @@ export class GamePlay {
     return this.state.value.board
   }
   // 初始化网格
-  init() {
+  init(width = this.width, height = this.height, mines = this.mines) {
+    this.width = width
+    this.height = height
+    this.mines = mines
     this.state.value = {
       mineGenerated: false,
       gameState: 'play',
@@ -56,10 +59,7 @@ export class GamePlay {
       const x = randomInt(0, this.width - 1)
       const y = randomInt(0, this.height - 1)
       const block = this.board[y][x]
-      if (Math.abs(initial.x - block.x) <= 1) {
-        return false
-      }
-      if (Math.abs(initial.y - block.y) <= 1) {
+      if (Math.abs(initial.x - block.x) <= 1 && Math.abs(initial.y - block.y) <= 1) {
         return false
       }
       if (block.mine) {
@@ -68,9 +68,9 @@ export class GamePlay {
       block.mine = true
       return true
     }
-    Array.from({ length: this.mines }, () => null).forEach(() => { 
+    Array.from({ length: this.mines }, () => null).forEach(() => {
       while (true) {
-        if(placeRandom())break
+        if (placeRandom()) break
       }
     })
 
